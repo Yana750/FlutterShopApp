@@ -43,6 +43,7 @@ lib/
 ├─ screen/
 │  ├─ homescreen.dart          # Стартовый экран с карточками
 │  └─ favorites_screen.dart    # Экран Избранного
+│  └─ nav_bar_screen.dart      # Навигация по экранам 
 ├─ services/
 │  └─ tracker_service.dart     # Сервис для отправки событий в трекеры
 └─ main.dart                   # Точка входа
