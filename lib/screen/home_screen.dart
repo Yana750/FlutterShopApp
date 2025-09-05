@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../Provider/favorite_provider.dart';
 import '../models/product_model.dart';
+import '../services/tracker_service.dart';
 
 class Homescreen extends StatelessWidget {
   Homescreen({super.key});
@@ -18,17 +19,12 @@ class Homescreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text("Стартовая страница"),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: Text("Стартовая страница"), centerTitle: true),
       body: ListView.builder(
         padding: const EdgeInsets.all(16),
         itemCount: products.length,
         itemBuilder: (context, index) {
           final product = products[index];
-
-          // Получаем provider здесь, чтобы использовать и для текста, и для onPressed
           return Builder(
             builder: (context) {
               final favoritesProvider = Provider.of<FavoriteProvider>(context);
@@ -72,22 +68,28 @@ class Homescreen extends StatelessWidget {
                                 ),
                               ),
                             const SizedBox(height: 8),
-                            ElevatedButton(
-                              onPressed: () {
-                                if (!isFavorite) {
-                                  favoritesProvider.addToFavorites(product);
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                          '${product.name} добавлен в избранное'),
-                                    ),
-                                  );
-                                }
-                              },
-                              child: Text(
-                                isFavorite ? "В избранном" : "В избранное",
-                                style: TextStyle(color: Colors.blue),
-                              ),
+                            Row(
+                              children: [
+                                ElevatedButton(
+                                  onPressed: () {
+                                    trackAddToFavorites(context, product);
+                                  },
+                                  child: Text(
+                                    isFavorite ? "В избранном" : "В избранное",
+                                    style: TextStyle(color: Colors.blue),
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    trackPurchase(product);
+                                  },
+                                  child: Text(
+                                    "Купить",
+                                    style: TextStyle(color: Colors.blue),
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),

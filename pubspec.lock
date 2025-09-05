@@ -131,6 +131,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.16.0"
+  mytracker_sdk:
+    dependency: "direct main"
+    description:
+      name: mytracker_sdk
+      sha256: "6fddd6caf734b13e8bc7d39481ed07c5bfdc6223ede58de1f53ff0a297c7df04"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.1"
   nested:
     dependency: transitive
     description:
