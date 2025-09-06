@@ -1,10 +1,9 @@
-import 'package:check/screen/favorites_screen.dart';
+import 'package:check/services/analytics_services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../Provider/favorite_provider.dart';
 import '../models/product_model.dart';
-import '../services/tracker_service.dart';
 
 class Homescreen extends StatelessWidget {
   Homescreen({super.key});
@@ -72,7 +71,7 @@ class Homescreen extends StatelessWidget {
                               children: [
                                 ElevatedButton(
                                   onPressed: () {
-                                    trackAddToFavorites(context, product);
+                                    AnalyticsService.trackAddToFavorites(context, product);
                                   },
                                   child: Text(
                                     isFavorite ? "В избранном" : "В избранное",
@@ -82,7 +81,7 @@ class Homescreen extends StatelessWidget {
                                 const SizedBox(width: 8),
                                 ElevatedButton(
                                   onPressed: () {
-                                    trackPurchase(product);
+                                    AnalyticsService.trackPurchase(product);
                                   },
                                   child: Text(
                                     "Купить",

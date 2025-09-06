@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:check/Provider/favorite_provider.dart';
 import 'package:check/screen/nav_bar_screen.dart';
 import 'package:flutter/material.dart';
@@ -14,11 +13,23 @@ void main() async {
   await dotenv.load(fileName: "assets/.env");
 
   final sdkKey = dotenv.env['MY_TRACKER_SDK'];
-  print('SDK KEY MYTRACKER $sdkKey');
+  final metricaKey = dotenv.env['APPMETRICA_KEY'];
 
+  //Инициализация MyTracker
   try {
     await MyTracker.init(sdkKey!);
-    print("Трекер SDK успешно подключен");
+
+    print("MyTracker подключен");
+  } catch (e) {
+    print("Ошибка инициализации");
+  }
+
+  //Инициализация AppMetrica
+  try {
+    await AppMetrica.activate(AppMetricaConfig(metricaKey!)
+      ..logs
+    );
+    print("AppMetrica подключена");
   } catch (e) {
     print("Ошибка инициализации");
   }
